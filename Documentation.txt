@@ -1,0 +1,47 @@
+﻿
+
+Burada hedeflenen ana amaç, bir .NET 6 projesi geliştirerek, UI tarafıyla haberleşmektedir.
+Bu süreçte .NET 6 farklarına değinmeye başlayarak, projemize başlayacağız.
+Bu örnek özelinde müfredatta gördükleriniz dışında farklı teknolejiler/kütüphaneler sizlere tanıtmaya çalışacağım.
+
+Öncelikli olarak, Bu projemizde Onion Architecture uygulayarak bir mimari pattern oluşturmaya çalışcağız.
+Oluşturduğumuz patterne alışık olduğumuz Generic Resository Pattern entegrasyonu gerçekleştireceğiz.
+ApiController üzerinde gelen istekleri yönlendirecek, yönlenen route üzerinden, request karşılayıp daha sonrasında bu istekleri
+tekrardan controllerlar ile haberleştirebilecek olan mediator pattern entegrasyonu gerçekleştirilecektir.
+
+Mediator pattern entegrasyonu gerçekleştirilirken, NuGeT Packages'dan MediatR kütüphanesiden besleneceğiz.
+
+Bu kurulumlar tamamlandıktan sonra, iş kullanıcı tarafına geldiğinde, yükümüzü microsoft identity ile birlikte biraz hafifleteceğiz.
+Identity kullanımı sırasında JWT(Bearer) dahil edilerek, yönetilen isteklere token bilgisi cookie'ler aracalığıyla isteklerinde tokenlar ile birlikte hareket etmesini sağlayacağız.
+
+Onion Architecture için Core ve Persistance klasörleri oluşturuldu.
+
+Core sistem içeirinde her katmana referans olmak istediğim çekirdek katmanımdır, ayrıca bu katmanım hiyerarşi ilişkini en ortasında kaldığı için UI/Presentation katmanlarından ayrıştırmış olucam, bude benim için basit bir güvenlik açığı vermeme konusunda bana yardımcı olacak.
+
+Core içeriisnde Application ve Domain klasörlerini oluşturuyorum,
+Domain burada entityleri tutacaktır, Application içerisindekilerle haberleşecektir.
+
+
+Persistance katmanı/klasörü içerisine,
+FluentApi'ler için bir configurations,
+Context için Context,
+Migration ve Repositories klasörleri oluşturulur.
+
+Configurations ayarlamaları AppUser ve Product için tamamlanır.
+Yapılan konfigürasyonlar uygulanabilmesi adına Context oluşturulur.
+
+
+context tamamlandıktan sonra persistance > Migrations klasörü içerisine migration çıkmak istiyorum
+
+add-migration InitialCreate -OutputDir Persistance/Migrations => ilgili -OutputDir keyword'ü kaynak hedef göstererek migrations dosyalarını tutacaktır
+
+Daha sonrasında, Apllication > Interfaces klasörü açılır ve generic repository pattern için interface oluşturulur.
+
+Oluşturulan bu interface, Persistance > Repositories içerisinde implement edilir.
+
+
+
+
+
+
+
