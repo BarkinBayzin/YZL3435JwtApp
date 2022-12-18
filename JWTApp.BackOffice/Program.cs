@@ -1,5 +1,11 @@
-﻿using JWTApp.BackOffice.Persistance.Context;
+﻿using AutoMapper;
+using JWTApp.BackOffice.Core.Application.Interfaces;
+using JWTApp.BackOffice.Core.Application.Mappings;
+using JWTApp.BackOffice.Persistance.Context;
+using JWTApp.BackOffice.Persistance.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 //Builder bizim servislerimizi yazacağımız alan
@@ -16,6 +22,19 @@ builder.Services.AddDbContext<JWTContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("conStr"));
 });
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly()); // Assembly çalıştığında eklensin diye bu şekilde kayıt ediyorum.
+
+builder.Services.AddAutoMapper(opt =>
+{
+    opt.AddProfiles(new List<Profile>()
+    {
+        new ProductProfile(), //buraya aynı şekilde oluşturduğumuz mapping dosyalarına ekleyebiliriz.
+    });
+});
+
 
 //bu alanda eskiden hatırladığımız şekilde dependency injectionlar gerçekleştirilir.
 
