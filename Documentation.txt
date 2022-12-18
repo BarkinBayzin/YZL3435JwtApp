@@ -80,14 +80,9 @@ ProductProfile class'ı oluşturulur.
 
 Oluşturulan bu class'ın di işlemleri için program.cs'e kayıt edilir.
 
-Handler içerine Imapper di tamamlandıktan sonra, Handle metodunun dönüşünde mapperımı kullanıyorum.
+Handler içerine IMapper di tamamlandıktan sonra, Handle metodunun dönüşünde mapperımı kullanıyorum.
 
 Yazmış olduğumuz GetAllProduct requestini çağıracak olan controller yapısını oluşturalım.
 
-
-
-
-
-
-
-
+Action ayarlamaları gerçekleşirildek sonra, diğer request ve handlerlar oluşturularak,
+diğer actionlarımıza bağlanır.

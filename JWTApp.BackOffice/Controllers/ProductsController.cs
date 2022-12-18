@@ -43,5 +43,19 @@ namespace JWTApp.BackOffice.Controllers
 
             return NoContent();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateProductCommandRequest request)
+        {
+            await _mediator.Send(request);
+            return Created("", request);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateProductCommandRequest request)
+        {
+            await _mediator.Send(request);
+            return Ok(request);
+        }
     }
 }
