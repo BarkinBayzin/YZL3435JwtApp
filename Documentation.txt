@@ -86,3 +86,37 @@ Yazmış olduğumuz GetAllProduct requestini çağıracak olan controller yapıs
 
 Action ayarlamaları gerçekleşirildikten sonra, diğer request ve handlerlar oluşturularak,
 diğer actionlarımıza bağlanır.
+
+Bu işlemler tamamlandıktan sonra, aynı gibi gözüken biraz daha farklı varyasyonlarını categories controller oluşturarak, 
+endpointlerine yeni isteklerimi bağladım.
+
+CRUD operasyonları tamamlandıktan sonra, artık kullanıcı tarafını ele alabiliriz.
+
+Öncelikle kullanıcı kayıt işlemleri(register) tamamlanır.
+
+Daha sonrasında login endpointlerinde tüketilmek üzere request ve dtolar tanımlanır.
+
+İşte bu senaryoda kullanmak istediğimiz Authenticatin Schemelarını dahil edebiliriz.
+
+Biz burada JwtBearer token kullanacağız. 
+
+Bu token header içerisine gömüp öyle taşıyacağız.(ki bu en yüksek düzey güvenliklerden biridir).
+
+UI tarafından, API Client'a istek olarak gönderildiğinde ise, Token'ın headerda olduğu bilgini cookie'ye atarak ileteceğiz.
+
+JWTSettings, token ayarlamalarını düzenlemek için açtığımız sınıftır.
+
+JWTResponse, JWTGenerator'ın doldurup sistem içerisine ileteceği Token Modelini tutan class.
+
+JWTGenarator'ın hedefi ise, Middleware'lar arasına kayıt edilen token algoritmasına uyacak şekilde token üretmek olan bir class'tır.
+
+Artık istenilen rol mekanızmasi ve kimlik doğrulamalar sisteme dahil edilmiştir, UI tarafına geçilir..
+
+
+---------------------------------------------- UI -----------------------------------------------
+
+ASP.Net Core Empty Project oluşturulur.
+
+Program.cs düzenlenir.
+
+

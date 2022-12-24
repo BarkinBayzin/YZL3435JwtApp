@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using JWTApp.BackOffice.Core.Application.Interfaces;
 using JWTApp.BackOffice.Core.Application.Mappings;
+using JWTApp.BackOffice.Infrastructure.Tools;
 using JWTApp.BackOffice.Persistance.Context;
 using JWTApp.BackOffice.Persistance.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 //Builder bizim servislerimizi yazacağımız alan
@@ -36,6 +40,28 @@ builder.Services.AddAutoMapper(opt =>
     });
 });
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("GlobalCors", config =>
+    {
+        config.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.RequireHttpsMetadata = false;
+    opt.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidAudience = JWTSettings.Audience,
+        ValidIssuer = JWTSettings.Issuer,
+        ClockSkew = TimeSpan.Zero,
+        ValidateLifetime = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTSettings.Key)),
+        ValidateIssuerSigningKey = true
+    };
+});
+
 
 //bu alanda eskiden hatırladığımız şekilde dependency injectionlar gerçekleştirilir.
 
@@ -49,6 +75,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("GlobalCors"); //birden fazla cors policy eklenebilir
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
