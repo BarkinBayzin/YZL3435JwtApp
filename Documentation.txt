@@ -84,5 +84,5 @@ Handler içerine IMapper di tamamlandıktan sonra, Handle metodunun dönüşünd
 
 Yazmış olduğumuz GetAllProduct requestini çağıracak olan controller yapısını oluşturalım.
 
-Action ayarlamaları gerçekleşirildek sonra, diğer request ve handlerlar oluşturularak,
+Action ayarlamaları gerçekleşirildikten sonra, diğer request ve handlerlar oluşturularak,
 diğer actionlarımıza bağlanır.

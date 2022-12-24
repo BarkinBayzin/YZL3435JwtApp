@@ -32,6 +32,7 @@ builder.Services.AddAutoMapper(opt =>
     opt.AddProfiles(new List<Profile>()
     {
         new ProductProfile(), //buraya aynı şekilde oluşturduğumuz mapping dosyalarına ekleyebiliriz.
+        new CategoryProfile(),
     });
 });
 
